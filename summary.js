@@ -39,6 +39,7 @@ module.exports = function(results) {
     fileCount = passCount + failureCount;
 
     summaryLineArray = [
+        'JavaScript Lint Summary:',
         chalk.bold(fileCount + ' ' + pluralize('file', fileCount) + ' checked.'),
         chalk.bold(passCount + ' passed.'),
         chalk.bold(failureCount + ' failed.')
