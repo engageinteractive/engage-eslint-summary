@@ -1,7 +1,6 @@
 'use strict';
 
 var chalk = require('chalk');
-var table = require('text-table');
 
 var pluralize = function(word, count) {
     var plural = count === 1 ? word : word + 's';
@@ -50,6 +49,6 @@ module.exports = function(results) {
         summaryLineArray.push(chalk[errorColor].bold(errorCount + ' ' + pluralize('error', errorCount) + '.'));
     }
 
-    return table([summaryLineArray]);
+    return summaryLineArray.join(' ');
 
 };
