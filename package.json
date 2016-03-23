@@ -1,28 +1,27 @@
 {
-    "name": "eslint-summary",
-    "version": "1.0.0",
-    "description": "Minimal ESLint formatter (reporter) that displays only one summary line.",
-    "keywords": [
-        "eslint",
-        "formatter",
-        "reporter",
-        "lint",
-        "validate"
-    ],
-    "license": "MIT",
-    "repository" :
-    {
-        "type" : "git",
-        "url" : "https://github.com/davidwaterston/eslint-summary.git"
-    },
-    "files": [
-        "index.js",
-        "summary.js"
-    ],
-    "engines": {
-        "node": ">=0.10.0"
-    },
-    "dependencies": {
-        "chalk": "^1.0.0"
-    }
+  "name": "eslint-summary",
+  "version": "1.0.0",
+  "description": "Minimal ESLint formatter (reporter) that displays only one summary line.",
+  "keywords": [
+    "eslint",
+    "formatter",
+    "reporter",
+    "lint",
+    "validate"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/engageinteractive/eslint-summary"
+  },
+  "files": [
+    "index.js",
+    "summary.js"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0"
+  }
 }
