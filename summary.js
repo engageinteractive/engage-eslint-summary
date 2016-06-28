@@ -4,68 +4,65 @@ var chalk = require('chalk');
 
 var pluralize = function(word, count) {
 
-	var plural = count === 1 ? word : word + 's';
-	return plural;
+	return count === 1 ? word : word + 's';
 
 };
 
 module.exports = function(results) {
 
-	var errorColor = 'red';
-	var warningColor = 'yellow';
-
-	var errorCount = 0;
-	var fileCount;
-	var failureCount = 0;
-	var passCount = 0;
-	var warningCount = 0;
-
-	var summaryLineArray;
+	var
+		summary = [],
+		counts = {
+			file: 0,
+			error: 0,
+			failure: 0,
+			pass: 0,
+			warning: 0
+		};
 
 	results.forEach(function(result) {
 
-		var messages = result.messages;
+		if (result.messages.length) {
 
-		if (messages.length === 0) {
+			counts.failure++;
+			counts.warning += result.warningCount;
+			counts.error += result.errorCount;
 
-			passCount++;
+		} else {
 
-		}
-		else {
-
-			failureCount++;
-			warningCount += result.warningCount;
-			errorCount += result.errorCount;
+			counts.pass++;
 
 		}
 
 	});
 
-	fileCount = passCount + failureCount;
+	counts.file = counts.pass + counts.failure;
 
-	summaryLineArray = [
-		'JavaScript Lint Summary:',
-		chalk.bold(fileCount + ' ' + pluralize('file', fileCount) + ' checked.'),
-		chalk.bold(passCount + ' passed.'),
-		chalk.bold(failureCount + ' failed.')
-	];
+	summary.push([
+		'JaveScript Summary:',
+		counts.file + ' ' + pluralize('file', counts.file) + ' checked.',
+		counts.pass + ' passed.'
+	].join(' '));
 
-	if (warningCount) {
-
-		summaryLineArray.push(chalk[warningColor].bold(warningCount
-			+ ' ' + pluralize('warning', warningCount) + '.')
-		);
-
+	if (counts.error || counts.warning) {
+		summary.push(chalk.yellow.bold(counts.failure + ' failed.'));
 	}
 
-	if (errorCount) {
+	['error', 'warning'].forEach(function(type) {
 
-		summaryLineArray.push(chalk[errorColor].bold(errorCount
-			+ ' ' + pluralize('error', errorCount) + '.')
-		);
+		if (counts[type]) {
 
-	}
+			summary.push(
+				chalk[type === 'error' ? 'red' : 'yellow'].bold([
+					counts[type],
+					pluralize(type, counts[type]) + '.'
+				].join(' '))
+			);
 
-	return summaryLineArray.join(' ');
+		}
+
+	});
+
+	return summary.join(' ');
 
 };
