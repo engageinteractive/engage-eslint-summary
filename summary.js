@@ -1,11 +1,10 @@
 'use strict';
 
 var chalk = require('chalk');
+var path = require('path');
 
 var pluralize = function(word, count) {
-
 	return count === 1 ? word : word + 's';
-
 };
 
 module.exports = function(results) {
@@ -18,7 +17,8 @@ module.exports = function(results) {
 			failure: 0,
 			pass: 0,
 			warning: 0
-		};
+		},
+		error = false;
 
 	results.forEach(function(result) {
 
@@ -27,6 +27,10 @@ module.exports = function(results) {
 			counts.failure++;
 			counts.warning += result.warningCount;
 			counts.error += result.errorCount;
+
+			if (result.errorCount) {
+				error = result;
+			}
 
 		} else {
 
@@ -62,6 +66,16 @@ module.exports = function(results) {
 		}
 
 	});
+
+	if (error) {
+		var message = error.messages[0];
+		summary.push([
+			'\r\n' + chalk.red(path.parse(error.filePath).base),
+			chalk.red(message.line + ':' + message.column),
+			chalk.red.bold(message.message),
+		].join(' '));
+
+	}
 
 	return summary.join(' ');
 
