@@ -50,11 +50,15 @@ module.exports = function(results) {
 		chalk.bold(failureCount + ' failed.')
 	];
 
-	if (warningCount || errorCount) {
+	if (warningCount) {
 
 		summaryLineArray.push(chalk[warningColor].bold(warningCount
 			+ ' ' + pluralize('warning', warningCount) + '.')
 		);
+
+	}
+
+	if (errorCount) {
 
 		summaryLineArray.push(chalk[errorColor].bold(errorCount
 			+ ' ' + pluralize('error', errorCount) + '.')
