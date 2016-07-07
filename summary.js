@@ -68,12 +68,22 @@ module.exports = function(results) {
 	});
 
 	if (error) {
-		var message = error.messages[0];
-		summary.push([
-			'\r\n' + chalk.red(path.parse(error.filePath).base),
-			chalk.red(message.line + ':' + message.column),
-			chalk.red.bold(message.message),
-		].join(' '));
+
+		for (var i = 0; i < error.messages.length; i++) {
+
+			if (error.messages[i].severity <= 1) {
+				continue;
+			}
+
+			summary.push([
+				'\r\n' + chalk.red(path.parse(error.filePath).base),
+				chalk.red(error.messages[i].line + ':' + error.messages[i].column),
+				chalk.red.bold(error.messages[i].message),
+			].join(' '));
+
+			break;
+
+		}
 
 	}
 
