@@ -7,6 +7,42 @@ var pluralize = function(word, count) {
 	return count === 1 ? word : word + 's';
 };
 
+var docUrls = {
+	default: {
+		prefix: 'http://eslint.org/docs/rules/',
+		suffix: ''
+	},
+	import: {
+		prefix: 'https://github.com/benmosher/eslint-plugin-import/tree/master/docs/rules/',
+		suffix: '.md'
+	}
+};
+
+var docsUrl = function(message) {
+
+	if (!message.ruleId) {
+		return false;
+	}
+
+	var
+		ruleId = message.ruleId.split('/'),
+		isPlugin = ruleId.length > 1,
+		docs = docUrls[ruleId[0]];
+
+	if (isPlugin && !docs) {
+		return false;
+	}
+
+	docs = docs || docUrls.default;
+
+	return [
+		docs.prefix,
+		ruleId[isPlugin ? 1 : 0],
+		docs.suffix
+	].join('');
+
+};
+
 module.exports = function(results) {
 
 	var
@@ -80,6 +116,15 @@ module.exports = function(results) {
 				chalk.red(error.messages[i].line + ':' + error.messages[i].column),
 				chalk.red.bold(error.messages[i].message),
 			].join(' '));
+
+			var url = docsUrl(error.messages[i]);
+
+			if (url) {
+				summary.push([
+					'\r\nSee: ',
+					url
+				].join(''));
+			}
 
 			break;
 
