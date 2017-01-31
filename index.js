@@ -104,7 +104,7 @@ module.exports = function(opts) {
 
 		});
 
-		if (error && !opts.hideErrors) {
+		if (error) {
 
 			for (var i = 0; i < error.messages.length; i++) {
 
@@ -112,11 +112,15 @@ module.exports = function(opts) {
 					continue;
 				}
 
-				summary.push([
-					chalk.red(path.parse(error.filePath).base),
-					chalk.red(error.messages[i].line + ':' + error.messages[i].column),
-					chalk.red.bold(error.messages[i].message),
-				].join(' '));
+				if (!opts.hideErrors) {
+
+					summary.push([
+						chalk.red(path.parse(error.filePath).base),
+						chalk.red(error.messages[i].line + ':' + error.messages[i].column),
+						chalk.red.bold(error.messages[i].message),
+					].join(' '));
+
+				}
 
 				var url = docsUrl(error.messages[i]);
 
