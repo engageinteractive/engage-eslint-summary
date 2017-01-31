@@ -64,7 +64,7 @@ module.exports = function(results) {
 			counts.warning += result.warningCount;
 			counts.error += result.errorCount;
 
-			if (result.errorCount) {
+			if (result.errorCount && !error) {
 				error = result;
 			}
 
