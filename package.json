@@ -1,6 +1,6 @@
 {
   "name": "engage-eslint-summary",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Minimal ESLint formatter (reporter) that displays only one summary line.",
   "keywords": [
     "eslint",
