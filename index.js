@@ -86,7 +86,7 @@ module.exports = function(opts) {
 		].join(' '));
 
 		if (counts.error || counts.warning) {
-			summary.push(chalk.yellow.bold(counts.failure + ' failed.'));
+			summary.push(chalk[counts.error ? 'red' : 'yellow'].bold(counts.failure + ' failed.'));
 		}
 
 		['error', 'warning'].forEach(function(type) {
