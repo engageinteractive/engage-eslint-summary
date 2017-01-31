@@ -113,7 +113,7 @@ module.exports = function(opts) {
 				}
 
 				summary.push([
-					'\r\n' + chalk.red(path.parse(error.filePath).base),
+					chalk.red(path.parse(error.filePath).base),
 					chalk.red(error.messages[i].line + ':' + error.messages[i].column),
 					chalk.red.bold(error.messages[i].message),
 				].join(' '));
@@ -121,10 +121,7 @@ module.exports = function(opts) {
 				var url = docsUrl(error.messages[i]);
 
 				if (url) {
-					summary.push([
-						'\r\nSee: ',
-						url
-					].join(''));
+					summary.push(url);
 				}
 
 				break;
