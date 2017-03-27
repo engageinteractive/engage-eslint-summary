@@ -80,7 +80,7 @@ module.exports = function(opts) {
 		counts.file = counts.pass + counts.failure;
 
 		summary.push([
-			'JaveScript Summary:',
+			'JavaScript Summary:',
 			counts.file + ' ' + pluralize('file', counts.file) + ' checked.',
 			counts.pass + ' passed.'
 		].join(' '));
